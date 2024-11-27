@@ -1,0 +1,8 @@
+#!/bin/bash
+iface=$(sudo iw dev | awk '$1=="Interface"{print $2}')
+if [[ $iface == "" ]]; then
+    iface=$(zenity --entry --text="Provide interface")
+fi
+notify-send "Restoring wlan state"
+pkill -f nowifi
+sudo airmon-ng stop $iface
